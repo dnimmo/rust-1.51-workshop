@@ -11,38 +11,41 @@ struct City {
 }
 
 impl City {
-    fn new(city_size: CitySize, is_coastal: bool) -> City {
-        let (description, residents) = match city_size {
-            CitySize::Town => {
-                let residents = 1_000;
+    fn to_string(city: CitySize) -> String {
+        (
+            match city {
+                CitySize::Town => {
+                    "town"
+                }
 
-                (
-                    format!("a *town* of approximately {} residents", residents),
-                    residents,
-                )
+                CitySize::City => {
+                    "city"
+                }
+
+                CitySize::Metropolis => {
+                    "metropolis"
+                }
+            }
+        ).to_string()
+    }
+
+    fn new(city_size: CitySize, is_coastal: bool) -> City {
+        let residents = match city_size {
+            CitySize::Town => {
+                1_000
             }
 
             CitySize::City => {
-                let residents = 10_000;
-
-                (
-                    format!("a *city* of approximately {} residents", residents),
-                    residents,
-                )
+                10_000
             }
 
             CitySize::Metropolis => {
-                let residents = 1000_000;
-
-                ( 
-                    format!("a *metropolis* of approximately {} residents", residents),
-                    residents,
-                )
+                1000_000
             }
         };
 
         City {
-            description,
+            description: format!("a *{}* of approximately {} residents", City::to_string(city_size), residents),
             residents,
             is_coastal,
         }
