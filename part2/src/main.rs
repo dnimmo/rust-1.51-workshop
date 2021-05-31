@@ -5,18 +5,18 @@ struct City {
 }
 
 fn new_city(residents: u64, is_coastal: bool) -> City {
-    if is_coastal {
-        City {
-            description: format!("a *coastal* city of approximately {} residents", residents),
-            residents,
-            is_coastal,
-        }
+    let city_description = if is_coastal {
+      "coastal"
     } else {
-        City {
-            description: format!("a *non-coastal* city of approximately {} residents", residents),
-            residents,
-            is_coastal,
-        }
+      "non-coastal"
+    };
+    let updated_description = format!("a *{}* city of approximately {} residents", city_description, residents);
+
+
+    City {
+        description: updated_description,
+        residents,
+        is_coastal,
     }
 }
 
